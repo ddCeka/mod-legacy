@@ -25,13 +25,10 @@ init -999 python:
                 modFile = renpy.file(filename)
                 inArchive = (renpy.android or modFile.name == None or modFile.name.endswith('.rpa'))
                 
-                if not inArchive: 
-                    import hashlib, random, string
-                    renpy.game.script.digest = hashlib.md5(''.join(random.choice(string.ascii_letters + string.digits) for i in range(20)).encode()) 
-                elif hasattr(modFile, 'name'):
+                if hasattr(modFile, 'name'):
                     Loader.archiveFile = modFile.name
                 
-                loaded = (renpy.load_string(modFile.read().decode(), filename) != None)
+                loaded = (renpy.load_string(modFile.read(), filename) != None)
                 
             except:
                 print(": Failed to load mod")
