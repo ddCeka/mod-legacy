@@ -191,8 +191,12 @@ init -1 python:
             def render(self, width, height, st, at):
                 rv = renpy.display.render.Render(width, height)
                 
-                img = renpy.display.im.MatrixColor(renpy.slot_screenshot(self.slot), renpy.display.im.matrix.opacity(.9))
-                imgRender = renpy.display.render.render(renpy.display.im.Scale(img, width, height), width, height, st, at)
-                rv.blit(imgRender, (0, 0))
+                slotScreenshot = renpy.slot_screenshot((self.slot))
+                if slotScreenshot:
+                    img = renpy.display.im.MatrixColor(renpy.slot_screenshot(self.slot), renpy.display.im.matrix.opacity(.9))
+                    imgRender = renpy.display.render.render(renpy.display.im.Scale(img, width, height), width, height, st, at)
+                    rv.blit(imgRender, (0, 0))
+                else:
+                    rv.fill(renpy.easy.color('#000000AA'))
                 
                 return rv

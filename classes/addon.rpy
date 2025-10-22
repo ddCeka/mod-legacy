@@ -21,12 +21,12 @@ init 999:
     default persistent.qm_history = False
     default persistent.qm_skip = False
     default persistent.qm_auto = False
-    default persistent.qm_save = True
-    default persistent.qm_load = True
+    default persistent.qm_save = False
+    default persistent.qm_load = False
     default persistent.qm_qsave = False
     default persistent.qm_qload = False
     default persistent.qm_prefs = True
-    default persistent.qm_mod = False
+    default persistent.qm_mod = True
     default persistent.qm_addon = True
 
     if persistent.mod_textbox == True:

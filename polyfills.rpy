@@ -4,7 +4,6 @@ init -999 python:
         def SetLocalVariable(name, value): 
             return SetDict(sys._getframe(1).f_locals, name, value)
 
-
     if not hasattr(renpy, 'get_registered_image'):
         def getRegisteredImage(name):
             if not isinstance(name, tuple):

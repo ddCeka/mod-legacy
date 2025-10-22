@@ -20,7 +20,6 @@ init -1 python:
             if self._m1_loader__saveDir == None:
                 self._m1_loader__saveDir = renpy.os.path.abspath(renpy.os.path.join(mod.Settings.saveDir, config.save_directory)) 
                 
-                
                 try:
                     renpy.os.makedirs(self.saveDir)
                 except Exception:
@@ -200,11 +199,9 @@ init -1 python:
             
             files = {}
             
-            
             gameDirFiles = glob(renpy.os.path.join(re.sub(r'(\[|\])', r'[\1]', self.gameDir), '*.mod')) 
             for i,filename in enumerate(gameDirFiles):
                 files[filename[len(self.gameDir)+1:]] = {'filename': filename, 'mtime': renpy.os.path.getmtime(filename)}
-            
             
             saveDirFiles = glob(renpy.os.path.join(re.sub(r'(\[|\])', r'[\1]', self.saveDir), '*.mod')) 
             for i,filename in enumerate(saveDirFiles):
@@ -212,7 +209,6 @@ init -1 python:
                 name = filename[len(self.saveDir)+1:]
                 if not hasattr(files, name) or files[name].mtime < mtime:
                     files[name] = {'filename': filename, 'mtime': mtime}
-            
             
             files = OrderedDict(sorted(files.items()))
             
@@ -259,7 +255,6 @@ init -1 python:
                         self.rememberedVars[key]['frozen'] = self.isFrozenVar(key)
                         self.rememberedVars[key]['monitored'] = self.isMonitoredVar(key)
                     
-                    
                     if self._m1_loader__saveFile(filename, {'vars': self.rememberedVars, 'labels': self.rememberedLabels, 'watched': self.watchedVars, 'replacements': [mod.TextRepl.replacements[k].__dict__ for k in mod.TextRepl.replacements], 'textboxCustomizations': self.textboxCustomizations}):
                         renpy.notify('Saved to game directory')
                         self.unsavedChanges = False
@@ -282,13 +277,11 @@ init -1 python:
             gameDirPath = renpy.os.path.join(self.gameDir, filename)
             saveDirPath = renpy.os.path.join(self.saveDir, filename)
             
-            
             try:
                 jsonData = json.dumps(data)
             except Exception as e:
                 print('mod: Converting savedata failed with error: {}'.format(e))
                 return False
-            
             
             try:
                 f = renpy.os.open(gameDirPath, renpy.os.O_CREAT | renpy.os.O_WRONLY | renpy.os.O_TRUNC)
@@ -297,7 +290,6 @@ init -1 python:
             except Exception as e:
                 print('mod: Failed to save file "{}" with error: {}'.format(gameDirPath, e))
                 return False
-            
             
             try:
                 f = renpy.os.open(saveDirPath, renpy.os.O_CREAT | renpy.os.O_WRONLY | renpy.os.O_TRUNC)
@@ -374,17 +366,14 @@ init -1 python:
             gameDirPath = renpy.os.path.join(self.gameDir, filename)
             saveDirPath = renpy.os.path.join(self.saveDir, filename)
             
-            
             gameDirMtime = renpy.os.path.getmtime(gameDirPath) if renpy.os.path.isfile(gameDirPath) else 0
             saveDirMtime = renpy.os.path.getmtime(saveDirPath) if renpy.os.path.isfile(saveDirPath) else 0
-            
             
             selectedFile = None
             if gameDirMtime >= saveDirMtime and gameDirMtime > 0:  
                 selectedFile = gameDirPath
             elif saveDirMtime > 0: 
                 selectedFile = saveDirPath
-            
             
             if selectedFile:
                 try:
