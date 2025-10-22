@@ -2,7 +2,15 @@ init 999:
     define config.hw_video = False
     define quick_menu = True
     define config.has_autosave = True
-
+    $ config.gestures["n"] = "game_menu"
+    $ config.gestures["s"] = "hide_windows"
+    $ config.gestures["e"] = "skip"
+    $ config.gestures["w"] = "rollback"
+    $ config.gestures["n_s_n"] = "performance"
+    $ config.gestures["e_w_e"] = "fast_skip"
+    $ config.gestures["n_w_s"] = "console"
+    $ quick_menu = True
+    $ suppress_overlay = False
     define config.autosave_on_quit = True
     define config.autosave_on_choice = True
     define config.save_on_mobile_background = True
@@ -14,8 +22,8 @@ init 999:
     define config.default_music_volume = 0.5
     define config.default_sfx_volume = 0.5
     define config.default_voice_volume = 0.5
-    
-    default persistent.mod_textbox = False
+    define config.default_text_cps = 198
+    default persistent.mod_textbox = True
     default persistent.quickmenu = 1
     default persistent.qm_back = True
     default persistent.qm_history = False
@@ -53,27 +61,6 @@ init 998 python:
         persistent.say_window_alpha = 0.5
         persistent.dialogueBoxOpacity = 0.5
 
-init -2 python:
-    class GetInput(Action):
-        def __init__(self,screen_name,input_id):
-            self.screen_name=screen_name
-            self.input_id=input_id
-        def __call__(self):
-            if renpy.get_widget(self.screen_name,self.input_id):
-                return str(renpy.get_widget(self.screen_name,self.input_id).content)
-
-init:
-    $ config.gestures["n"] = "game_menu"
-    $ config.gestures["s"] = "hide_windows"
-    $ config.gestures["e"] = "skip"
-    $ config.gestures["w"] = "rollback"
-    $ config.gestures["n_s_n"] = "performance"
-    $ config.gestures["e_w_e"] = "fast_skip"
-    $ config.gestures["n_w_s"] = "console"
-    $ quick_menu = True
-    $ suppress_overlay = False
-
-init python:
     for label in renpy.get_all_labels():
         renpy.game.persistent._seen_ever[label] = True
         renpy.game.seen_session[label] = True
@@ -84,6 +71,15 @@ init python:
     gr = "{color=#00FF00}"
     red = "{color=#FF0000}"
     pur = "{color=#8a2be2}"
+
+init -2 python:
+    class GetInput(Action):
+        def __init__(self,screen_name,input_id):
+            self.screen_name=screen_name
+            self.input_id=input_id
+        def __call__(self):
+            if renpy.get_widget(self.screen_name,self.input_id):
+                return str(renpy.get_widget(self.screen_name,self.input_id).content)
 
 label addon_start:
     $ suppress_overlay = False

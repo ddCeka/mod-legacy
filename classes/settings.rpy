@@ -26,7 +26,7 @@ init -1 python:
             'quickSaveHotKey': False,
             'quickLoadHotKey': False,
             'consoleHotKey': False,
-            'skipSplashscreen': False,
+            'skipSplashscreen': True,
             'touchEnabled': False,
             'touchPosition': None,
             'textboxesEnabled': False,
